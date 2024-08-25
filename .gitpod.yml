@@ -1,0 +1,20 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: |
+      sudo apt-get update
+      sudo apt-get install -y openjdk-11-jdk
+      wget https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip
+      mkdir -p $HOME/Android/Sdk/cmdline-tools
+      unzip commandlinetools-linux-8512546_latest.zip -d $HOME/Android/Sdk/cmdline-tools
+      yes | $HOME/Android/Sdk/cmdline-tools/cmdline-tools/bin/sdkmanager --licenses
+      $HOME/Android/Sdk/cmdline-tools/cmdline-tools/bin/sdkmanager "platform-tools" "platforms;android-30"
+      wget https://services.gradle.org/distributions/gradle-6.7.1-bin.zip -P /tmp
+      unzip -d /opt/gradle /tmp/gradle-*.zip
+      export PATH=$PATH:/opt/gradle/gradle-6.7.1/bin:$HOME/Android/Sdk/platform-tools
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - esbenp.prettier-vscode
